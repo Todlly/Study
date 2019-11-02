@@ -1,0 +1,7 @@
+SmallSize-200
+MediumSize-250
+BigSize-270
+-
+ExtraMilk-30
+-
+EspressoShot-40
