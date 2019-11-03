@@ -7,3 +7,12 @@ C:\Users\furry\Source\Repos\BubbleTea\obj\Debug\BubbleTea.Properties.Resources.r
 C:\Users\furry\Source\Repos\BubbleTea\obj\Debug\BubbleTea.csproj.GenerateResource.cache
 C:\Users\furry\Source\Repos\BubbleTea\obj\Debug\BubbleTea.exe
 C:\Users\furry\Source\Repos\BubbleTea\obj\Debug\BubbleTea.pdb
+C:\Users\furry\Source\Study\BubbleTea\bin\Debug\BubbleTea.exe.config
+C:\Users\furry\Source\Study\BubbleTea\bin\Debug\BubbleTea.exe
+C:\Users\furry\Source\Study\BubbleTea\bin\Debug\BubbleTea.pdb
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.csprojAssemblyReference.cache
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.Form1.resources
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.Properties.Resources.resources
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.csproj.GenerateResource.cache
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.exe
+C:\Users\furry\Source\Study\BubbleTea\obj\Debug\BubbleTea.pdb
