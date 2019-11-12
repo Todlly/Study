@@ -13,6 +13,9 @@ namespace _15
 {
     public partial class Form1 : Form
     {
+        int[,] winPos, currPos;
+        Button[,] buttons;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,6 +25,7 @@ namespace _15
         {
             winPos = new int[6, 6];
             currPos = new int[6, 6];
+            buttons = new Button[6, 6];
 
             int counter = 0;
 
@@ -42,6 +46,7 @@ namespace _15
                     }
                 }
             }
+            CreateButtons();
         }
 
         private void CreateButtons()
@@ -60,7 +65,7 @@ namespace _15
                     {
                         buttons[i, j].Visible = true;
                     }
-
+                    buttons[i, j].Show();
                 }
             }
         }
@@ -73,9 +78,28 @@ namespace _15
                 {
                     if(buttons[i,j] == sender as Button)
                     {
-                        if(currPos[i-1, j] == 16 || currPos[i+1,j]==16||currPos[i, j-1] == 16 || currPos[i, j+1] == 16)
+                        if(currPos[i - 1, j] == 16)
                         {
-
+                            Swap(buttons[i, j], buttons[i - 1, j]);
+                            currPos[i, j] = currPos[i - 1, j];
+                            currPos[i - 1, j] = Convert.ToInt32((sender as Button).Text);
+                        }else if(currPos[i + 1, j] == 16)
+                        {
+                            Swap(buttons[i, j], buttons[i + 1, j]);
+                            currPos[i, j] = currPos[i + 1, j];
+                            currPos[i + 1, j] = Convert.ToInt32((sender as Button).Text);
+                        }
+                        else if(currPos[i, j - 1] == 16)
+                        {
+                            Swap(buttons[i, j], buttons[i, j - 1]);
+                            currPos[i, j] = currPos[i, j - 1];
+                            currPos[i, j - 1] = Convert.ToInt32((sender as Button).Text);
+                        }
+                        else if(currPos[i, j + 1] == 16)
+                        {
+                            Swap(buttons[i, j], buttons[i, j + 1]);
+                            currPos[i, j] = currPos[i, j + 1];
+                            currPos[i, j + 1] = Convert.ToInt32((sender as Button).Text);
                         }
                     }
                 }
@@ -91,8 +115,6 @@ namespace _15
             dest.Top = posit.Y;
         }
 
-        int[,] winPos, currPos;
-        Button[,] buttons;
 
 
     }
