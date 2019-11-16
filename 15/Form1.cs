@@ -27,7 +27,7 @@ namespace _15
             currPos = new int[6, 6];
             buttons = new Button[6, 6];
 
-            int counter = 0;
+            int counter = 1;
 
             for (int i = 0; i < 6; i++)
             {
@@ -51,68 +51,79 @@ namespace _15
 
         private void CreateButtons()
         {
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 6; j++)
                 {
                     buttons[i, j] = new Button();
-                    buttons[i, j].Height = 70;
-                    buttons[i, j].Width = 70;
-                    buttons[i, j].Left = j * 5 + 2;
-                    buttons[i, j].Top = i * 5 + 2;
+                    buttons[i, j].Height = 50;
+                    buttons[i, j].Width = 50;
+                    buttons[i, j].Left = j * 50;
+                    buttons[i, j].Top = i * 50;
                     buttons[i, j].Text = winPos[i, j].ToString();
-                    if(winPos[i,j] != -1 || winPos[i,j] != 16)
+                    if (buttons[i, j].Text != "-1" /* && buttons[i, j].Text != "16" */)
                     {
-                        buttons[i, j].Visible = true;
+                        panel1.Controls.Add(buttons[i, j]);
+                        buttons[i, j].Click += new EventHandler(ButtonClick);
                     }
-                    buttons[i, j].Show();
                 }
             }
         }
 
         private void ButtonClick(object sender, EventArgs e)
         {
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
-                for(int j = 0; j < 6; j++)
+                for (int j = 0; j < 6; j++)
                 {
-                    if(buttons[i,j] == sender as Button)
+                    if (currPos[i, j] == Convert.ToInt32((sender as Button).Text))
                     {
-                        if(currPos[i - 1, j] == 16)
+                        if (currPos[i - 1, j] == 16)
                         {
-                            Swap(buttons[i, j], buttons[i - 1, j]);
-                            currPos[i, j] = currPos[i - 1, j];
+                            currPos[i, j] = 16;
                             currPos[i - 1, j] = Convert.ToInt32((sender as Button).Text);
-                        }else if(currPos[i + 1, j] == 16)
+                            Swap(sender as Button);
+                            
+                        }
+                        else if (currPos[i + 1, j] == 16)
                         {
-                            Swap(buttons[i, j], buttons[i + 1, j]);
-                            currPos[i, j] = currPos[i + 1, j];
+                            currPos[i, j] = 16;
                             currPos[i + 1, j] = Convert.ToInt32((sender as Button).Text);
+                            Swap(sender as Button);
                         }
-                        else if(currPos[i, j - 1] == 16)
+                        else if (currPos[i, j - 1] == 16)
                         {
-                            Swap(buttons[i, j], buttons[i, j - 1]);
-                            currPos[i, j] = currPos[i, j - 1];
+                            currPos[i, j] = 16;
                             currPos[i, j - 1] = Convert.ToInt32((sender as Button).Text);
+                            Swap(sender as Button);
                         }
-                        else if(currPos[i, j + 1] == 16)
+                        else if (currPos[i, j + 1] == 16)
                         {
-                            Swap(buttons[i, j], buttons[i, j + 1]);
-                            currPos[i, j] = currPos[i, j + 1];
+                            currPos[i, j] = 16;
                             currPos[i, j + 1] = Convert.ToInt32((sender as Button).Text);
+                            Swap(sender as Button);
                         }
                     }
                 }
             }
         }
 
-        private void Swap(Button pos, Button dest)
+        private void Swap(Button pos1)
         {
-            Point posit = new Point(pos.Left, pos.Top);
-            pos.Left = dest.Left;
-            pos.Top = dest.Top;
-            dest.Left = posit.X;
-            dest.Top = posit.Y;
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    if (buttons[i, j].Text == "16")
+                    {
+                        Point pos3 = new Point(pos1.Left, pos1.Top);
+                        pos1.Left = buttons[i,j].Left;
+                        pos1.Top = buttons[i,j].Top;
+                        buttons[i,j].Left = pos3.X;
+                        buttons[i,j].Top = pos3.Y;
+                    }
+                }
+            }
         }
 
 
