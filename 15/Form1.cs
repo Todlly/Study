@@ -47,6 +47,7 @@ namespace _15
                 }
             }
             CreateButtons();
+            shuffleTimes.Text = "0";
         }
 
         private void CreateButtons()
@@ -61,7 +62,7 @@ namespace _15
                     buttons[i, j].Left = j * 50;
                     buttons[i, j].Top = i * 50;
                     buttons[i, j].Text = winPos[i, j].ToString();
-                    if (buttons[i, j].Text != "-1" /* && buttons[i, j].Text != "16" */)
+                    if (buttons[i, j].Text != "-1" && buttons[i, j].Text != "16")
                     {
                         panel1.Controls.Add(buttons[i, j]);
                         buttons[i, j].Click += new EventHandler(ButtonClick);
@@ -83,25 +84,28 @@ namespace _15
                             currPos[i, j] = 16;
                             currPos[i - 1, j] = Convert.ToInt32((sender as Button).Text);
                             Swap(sender as Button);
-                            
+                            return;
                         }
                         else if (currPos[i + 1, j] == 16)
                         {
                             currPos[i, j] = 16;
                             currPos[i + 1, j] = Convert.ToInt32((sender as Button).Text);
                             Swap(sender as Button);
+                            return;
                         }
                         else if (currPos[i, j - 1] == 16)
                         {
                             currPos[i, j] = 16;
                             currPos[i, j - 1] = Convert.ToInt32((sender as Button).Text);
                             Swap(sender as Button);
+                            return;
                         }
                         else if (currPos[i, j + 1] == 16)
                         {
                             currPos[i, j] = 16;
                             currPos[i, j + 1] = Convert.ToInt32((sender as Button).Text);
                             Swap(sender as Button);
+                            return;
                         }
                     }
                 }
@@ -116,17 +120,70 @@ namespace _15
                 {
                     if (buttons[i, j].Text == "16")
                     {
-                        Point pos3 = new Point(pos1.Left, pos1.Top);
-                        pos1.Left = buttons[i,j].Left;
-                        pos1.Top = buttons[i,j].Top;
-                        buttons[i,j].Left = pos3.X;
-                        buttons[i,j].Top = pos3.Y;
+                        int top, left;
+                        top = pos1.Top;
+                        left = pos1.Left;
+                        pos1.Left = buttons[i, j].Left;
+                        pos1.Top = buttons[i, j].Top;
+                        buttons[i, j].Left = left;
+                        buttons[i, j].Top = top;
                     }
                 }
             }
         }
 
+        private void Shuffle(int times)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < times; i++)
+            {
+                int number = rand.Next(1, 15);
+                foreach (var button in buttons)
+                {
+                    if (button.Text == number.ToString())
+                    {
+                        ButtonClick(button, null);
+                    }
+                }
+            }
+        }
 
+        private void Shffler_Click(object sender, EventArgs e)
+        {
+            Shuffle(Convert.ToInt32(shuffleTimes.Text));
+        }
 
+        private void shuffleTimes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool CheckPositions()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    if(currPos[i,j] != winPos[i, j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private void TryWin_Click(object sender, EventArgs e)
+        {
+            if (CheckPositions())
+                MessageBox.Show("You win!");
+            else
+                MessageBox.Show("Not yet right!");
+        }
+        
+        
     }
 }
