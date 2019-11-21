@@ -28,24 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Shffler = new System.Windows.Forms.Button();
             this.shuffleTimes = new System.Windows.Forms.TextBox();
-            this.TryWin = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.MovesLabel = new System.Windows.Forms.Label();
+            this.StartButton = new System.Windows.Forms.Button();
+            this.TimeLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.SizeChooser = new System.Windows.Forms.ComboBox();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(363, 353);
+            this.panel1.Size = new System.Drawing.Size(304, 300);
             this.panel1.TabIndex = 0;
             // 
             // Shffler
             // 
-            this.Shffler.Location = new System.Drawing.Point(409, 256);
+            this.Shffler.Location = new System.Drawing.Point(9, 32);
             this.Shffler.Name = "Shffler";
-            this.Shffler.Size = new System.Drawing.Size(132, 66);
+            this.Shffler.Size = new System.Drawing.Size(76, 25);
             this.Shffler.TabIndex = 1;
             this.Shffler.Text = "Shuffle";
             this.Shffler.UseVisualStyleBackColor = true;
@@ -53,36 +60,86 @@
             // 
             // shuffleTimes
             // 
-            this.shuffleTimes.Location = new System.Drawing.Point(409, 230);
+            this.shuffleTimes.Location = new System.Drawing.Point(9, 6);
             this.shuffleTimes.Name = "shuffleTimes";
-            this.shuffleTimes.Size = new System.Drawing.Size(100, 20);
+            this.shuffleTimes.Size = new System.Drawing.Size(76, 20);
             this.shuffleTimes.TabIndex = 2;
             this.shuffleTimes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.shuffleTimes_KeyPress);
             // 
-            // TryWin
+            // timer1
             // 
-            this.TryWin.Location = new System.Drawing.Point(409, 173);
-            this.TryWin.Name = "TryWin";
-            this.TryWin.Size = new System.Drawing.Size(132, 41);
-            this.TryWin.TabIndex = 3;
-            this.TryWin.Text = "Check";
-            this.TryWin.UseVisualStyleBackColor = true;
-            this.TryWin.Click += new System.EventHandler(this.TryWin_Click);
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // MovesLabel
+            // 
+            this.MovesLabel.AutoSize = true;
+            this.MovesLabel.Location = new System.Drawing.Point(148, 13);
+            this.MovesLabel.Name = "MovesLabel";
+            this.MovesLabel.Size = new System.Drawing.Size(39, 13);
+            this.MovesLabel.TabIndex = 4;
+            this.MovesLabel.Text = "Moves";
+            // 
+            // StartButton
+            // 
+            this.StartButton.Location = new System.Drawing.Point(91, 6);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(52, 51);
+            this.StartButton.TabIndex = 5;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.AutoSize = true;
+            this.TimeLabel.Location = new System.Drawing.Point(149, 38);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(35, 13);
+            this.TimeLabel.TabIndex = 6;
+            this.TimeLabel.Text = "label1";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.SizeChooser);
+            this.panel2.Controls.Add(this.StartButton);
+            this.panel2.Controls.Add(this.TimeLabel);
+            this.panel2.Controls.Add(this.Shffler);
+            this.panel2.Controls.Add(this.shuffleTimes);
+            this.panel2.Controls.Add(this.MovesLabel);
+            this.panel2.Location = new System.Drawing.Point(1, 307);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(304, 102);
+            this.panel2.TabIndex = 7;
+            // 
+            // SizeChooser
+            // 
+            this.SizeChooser.FormattingEnabled = true;
+            this.SizeChooser.Items.AddRange(new object[] {
+            "3",
+            "8",
+            "15",
+            "24"});
+            this.SizeChooser.Location = new System.Drawing.Point(9, 63);
+            this.SizeChooser.Name = "SizeChooser";
+            this.SizeChooser.Size = new System.Drawing.Size(121, 21);
+            this.SizeChooser.TabIndex = 8;
+            this.SizeChooser.SelectedIndexChanged += new System.EventHandler(this.SizeChooser_SelectedIndexChanged);
+            this.SizeChooser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SizeChooser_KeyPress);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 450);
-            this.Controls.Add(this.TryWin);
-            this.Controls.Add(this.shuffleTimes);
-            this.Controls.Add(this.Shffler);
+            this.ClientSize = new System.Drawing.Size(308, 411);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "15";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -91,7 +148,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Shffler;
         private System.Windows.Forms.TextBox shuffleTimes;
-        private System.Windows.Forms.Button TryWin;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label MovesLabel;
+        private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox SizeChooser;
     }
 }
 

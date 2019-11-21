@@ -13,27 +13,50 @@ namespace _15
 {
     public partial class Form1 : Form
     {
-        int[,] winPos, currPos;
-        Button[,] buttons;
+        private int[,] winPos, currPos;
+        private int movesCounter, gridSize, emptyNumber;
+        private float time;
+        private bool runningGame, shuffling;
+        private Button[,] buttons;
 
         public Form1()
         {
             InitializeComponent();
+            movesCounter = 0;
+            MovesLabel.Text = "Moves: " + movesCounter;
+            runningGame = false;
+            shuffling = false;
+            TimeLabel.Text = "Time: " + time;
+            timer1.Interval = 1000;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            winPos = new int[6, 6];
-            currPos = new int[6, 6];
-            buttons = new Button[6, 6];
+            panel1.Left -= 50;
+            panel1.Top -= 50;
+            panel2.Top -= 50;
+            this.Height -= 50;
+            gridSize = 4;
+            BuildField(gridSize);
+        }
+
+        private void BuildField(int size)
+        {
+            Reset();
+            panel1.Controls.Clear();
+            gridSize = size;
+            emptyNumber = (gridSize - 2) * (gridSize - 2);
+            winPos = new int[gridSize, gridSize];
+            currPos = new int[gridSize, gridSize];
+            buttons = new Button[gridSize, gridSize];
 
             int counter = 1;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    if (i == 0 || i == 5 || j == 0 || j == 5)
+                    if (i == 0 || i == gridSize - 1 || j == 0 || j == gridSize - 1)
                     {
                         winPos[i, j] = -1;
                         currPos[i, j] = -1;
@@ -52,9 +75,9 @@ namespace _15
 
         private void CreateButtons()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
                     buttons[i, j] = new Button();
                     buttons[i, j].Height = 50;
@@ -62,10 +85,14 @@ namespace _15
                     buttons[i, j].Left = j * 50;
                     buttons[i, j].Top = i * 50;
                     buttons[i, j].Text = winPos[i, j].ToString();
-                    if (buttons[i, j].Text != "-1" && buttons[i, j].Text != "16")
+                    if (buttons[i, j].Text != "-1" && buttons[i, j].Text != emptyNumber.ToString())
                     {
                         panel1.Controls.Add(buttons[i, j]);
                         buttons[i, j].Click += new EventHandler(ButtonClick);
+                    }
+                    else if (buttons[i, j].Text == emptyNumber.ToString())
+                    {
+                        buttons[i, j].Text = emptyNumber.ToString();
                     }
                 }
             }
@@ -73,38 +100,32 @@ namespace _15
 
         private void ButtonClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < 6; i++)
+            if (!runningGame && !shuffling)
+                return;
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
                     if (currPos[i, j] == Convert.ToInt32((sender as Button).Text))
                     {
-                        if (currPos[i - 1, j] == 16)
+                        if (currPos[i - 1, j] == emptyNumber)
                         {
-                            currPos[i, j] = 16;
-                            currPos[i - 1, j] = Convert.ToInt32((sender as Button).Text);
-                            Swap(sender as Button);
+                            Swap(sender as Button, i, j, i - 1, j);
                             return;
                         }
-                        else if (currPos[i + 1, j] == 16)
+                        else if (currPos[i + 1, j] == emptyNumber)
                         {
-                            currPos[i, j] = 16;
-                            currPos[i + 1, j] = Convert.ToInt32((sender as Button).Text);
-                            Swap(sender as Button);
+                            Swap(sender as Button, i, j, i + 1, j);
                             return;
                         }
-                        else if (currPos[i, j - 1] == 16)
+                        else if (currPos[i, j - 1] == emptyNumber)
                         {
-                            currPos[i, j] = 16;
-                            currPos[i, j - 1] = Convert.ToInt32((sender as Button).Text);
-                            Swap(sender as Button);
+                            Swap(sender as Button, i, j, i, j - 1);
                             return;
                         }
-                        else if (currPos[i, j + 1] == 16)
+                        else if (currPos[i, j + 1] == emptyNumber)
                         {
-                            currPos[i, j] = 16;
-                            currPos[i, j + 1] = Convert.ToInt32((sender as Button).Text);
-                            Swap(sender as Button);
+                            Swap(sender as Button, i, j, i, j + 1);
                             return;
                         }
                     }
@@ -112,13 +133,13 @@ namespace _15
             }
         }
 
-        private void Swap(Button pos1)
+        private void Swap(Button pos1, int n, int m, int d, int k)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    if (buttons[i, j].Text == "16")
+                    if (buttons[i, j].Text == emptyNumber.ToString())
                     {
                         int top, left;
                         top = pos1.Top;
@@ -127,9 +148,14 @@ namespace _15
                         pos1.Top = buttons[i, j].Top;
                         buttons[i, j].Left = left;
                         buttons[i, j].Top = top;
+                        currPos[n, m] = emptyNumber;
+                        currPos[d, k] = Convert.ToInt32(pos1.Text);
                     }
                 }
             }
+            AddTurn();
+            if (CheckPositions() && runningGame)
+                Win();
         }
 
         private void Shuffle(int times)
@@ -137,7 +163,7 @@ namespace _15
             Random rand = new Random();
             for (int i = 0; i < times; i++)
             {
-                int number = rand.Next(1, 15);
+                int number = rand.Next(1, emptyNumber - 1);
                 foreach (var button in buttons)
                 {
                     if (button.Text == number.ToString())
@@ -146,11 +172,15 @@ namespace _15
                     }
                 }
             }
+            movesCounter = 0;
+            MovesLabel.Text = "Moves: " + movesCounter;
         }
 
         private void Shffler_Click(object sender, EventArgs e)
         {
+            shuffling = true;
             Shuffle(Convert.ToInt32(shuffleTimes.Text));
+            shuffling = false;
         }
 
         private void shuffleTimes_KeyPress(object sender, KeyPressEventArgs e)
@@ -163,11 +193,11 @@ namespace _15
 
         private bool CheckPositions()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    if(currPos[i,j] != winPos[i, j])
+                    if (currPos[i, j] != winPos[i, j])
                     {
                         return false;
                     }
@@ -176,14 +206,75 @@ namespace _15
             return true;
         }
 
-        private void TryWin_Click(object sender, EventArgs e)
+        private void SizeChooser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CheckPositions())
-                MessageBox.Show("You win!");
-            else
-                MessageBox.Show("Not yet right!");
+            switch (SizeChooser.SelectedItem)
+            {
+                case "3":
+                    BuildField(4);
+                    break;
+                case "8":
+                    BuildField(5);
+                    break;
+                case "15":
+                    BuildField(6);
+                    break;
+                case "24":
+                    BuildField(7);
+                    break;
+            }
         }
-        
-        
+
+        private void Reset()
+        {
+            timer1.Stop();
+            runningGame = false;
+            time = 0;
+            TimeLabel.Text = "Time: " + time;
+            movesCounter = 0;
+            MovesLabel.Text = "Moves: " + movesCounter;
+        }
+
+        private void SizeChooser_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void Win()
+        {
+            timer1.Stop();
+            MessageBox.Show($"Your time: {time} seconds, moves: {movesCounter}", "You win!");
+            Reset();
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            if (!runningGame)
+            {
+                if (CheckPositions())
+                {
+                    MessageBox.Show("Shuffle first!");
+                }
+                else
+                {
+                    TimeLabel.Text = "Time: " + time;
+                    shuffleTimes.Text = "0";
+                    timer1.Start();
+                    runningGame = true;
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            time += 1f;
+            TimeLabel.Text = "Time: " + time;
+        }
+
+        private void AddTurn()
+        {
+            movesCounter++;
+            MovesLabel.Text = "Moves: " + movesCounter;
+        }
     }
 }
