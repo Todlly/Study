@@ -37,7 +37,9 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SizeChooser = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@
             // 
             // Shffler
             // 
-            this.Shffler.Location = new System.Drawing.Point(9, 32);
+            this.Shffler.Location = new System.Drawing.Point(3, 53);
             this.Shffler.Name = "Shffler";
             this.Shffler.Size = new System.Drawing.Size(76, 25);
             this.Shffler.TabIndex = 1;
@@ -60,7 +62,7 @@
             // 
             // shuffleTimes
             // 
-            this.shuffleTimes.Location = new System.Drawing.Point(9, 6);
+            this.shuffleTimes.Location = new System.Drawing.Point(3, 27);
             this.shuffleTimes.Name = "shuffleTimes";
             this.shuffleTimes.Size = new System.Drawing.Size(76, 20);
             this.shuffleTimes.TabIndex = 2;
@@ -73,7 +75,7 @@
             // MovesLabel
             // 
             this.MovesLabel.AutoSize = true;
-            this.MovesLabel.Location = new System.Drawing.Point(148, 13);
+            this.MovesLabel.Location = new System.Drawing.Point(159, 12);
             this.MovesLabel.Name = "MovesLabel";
             this.MovesLabel.Size = new System.Drawing.Size(39, 13);
             this.MovesLabel.TabIndex = 4;
@@ -81,9 +83,9 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(91, 6);
+            this.StartButton.Location = new System.Drawing.Point(85, 8);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(52, 51);
+            this.StartButton.Size = new System.Drawing.Size(69, 70);
             this.StartButton.TabIndex = 5;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -92,7 +94,7 @@
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Location = new System.Drawing.Point(149, 38);
+            this.TimeLabel.Location = new System.Drawing.Point(160, 37);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(35, 13);
             this.TimeLabel.TabIndex = 6;
@@ -100,6 +102,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.SizeChooser);
             this.panel2.Controls.Add(this.StartButton);
             this.panel2.Controls.Add(this.TimeLabel);
@@ -108,8 +112,17 @@
             this.panel2.Controls.Add(this.MovesLabel);
             this.panel2.Location = new System.Drawing.Point(1, 307);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(304, 102);
+            this.panel2.Size = new System.Drawing.Size(264, 141);
             this.panel2.TabIndex = 7;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.progressBar1.Location = new System.Drawing.Point(3, 111);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(244, 23);
+            this.progressBar1.Step = 1;
+            this.progressBar1.TabIndex = 9;
             // 
             // SizeChooser
             // 
@@ -119,18 +132,28 @@
             "8",
             "15",
             "24"});
-            this.SizeChooser.Location = new System.Drawing.Point(9, 63);
+            this.SizeChooser.Location = new System.Drawing.Point(3, 84);
             this.SizeChooser.Name = "SizeChooser";
             this.SizeChooser.Size = new System.Drawing.Size(121, 21);
             this.SizeChooser.TabIndex = 8;
+            this.SizeChooser.Text = "Size";
             this.SizeChooser.SelectedIndexChanged += new System.EventHandler(this.SizeChooser_SelectedIndexChanged);
             this.SizeChooser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SizeChooser_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Shuffle times";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 411);
+            this.ClientSize = new System.Drawing.Size(252, 452);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -154,6 +177,8 @@
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox SizeChooser;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

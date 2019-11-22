@@ -36,7 +36,7 @@ namespace _15
             panel1.Top -= 50;
             panel2.Top -= 50;
             this.Height -= 50;
-            gridSize = 4;
+            gridSize = 6;
             BuildField(gridSize);
         }
 
@@ -160,10 +160,13 @@ namespace _15
 
         private void Shuffle(int times)
         {
+            progressBar1.Value = 0;
+            if (runningGame)
+                return;
             Random rand = new Random();
             for (int i = 0; i < times; i++)
             {
-                int number = rand.Next(1, emptyNumber - 1);
+                int number = rand.Next(1, emptyNumber);
                 foreach (var button in buttons)
                 {
                     if (button.Text == number.ToString())
@@ -171,6 +174,7 @@ namespace _15
                         ButtonClick(button, null);
                     }
                 }
+                progressBar1.Value = i;
             }
             movesCounter = 0;
             MovesLabel.Text = "Moves: " + movesCounter;
@@ -179,6 +183,7 @@ namespace _15
         private void Shffler_Click(object sender, EventArgs e)
         {
             shuffling = true;
+            progressBar1.Maximum = Convert.ToInt32(shuffleTimes.Text);
             Shuffle(Convert.ToInt32(shuffleTimes.Text));
             shuffling = false;
         }
@@ -249,6 +254,7 @@ namespace _15
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            progressBar1.Value = 0;
             if (!runningGame)
             {
                 if (CheckPositions())
