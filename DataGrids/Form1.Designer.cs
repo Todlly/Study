@@ -28,105 +28,127 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.BoxColumnsCount = new System.Windows.Forms.NumericUpDown();
-            this.BoxRowsCount = new System.Windows.Forms.NumericUpDown();
+            this.studentsDataGrid = new System.Windows.Forms.DataGridView();
+            this.TabControl = new System.Windows.Forms.TabControl();
+            this.tabStudents = new System.Windows.Forms.TabPage();
+            this.butonReadFromFile = new System.Windows.Forms.Button();
+            this.buttonRandomize = new System.Windows.Forms.Button();
+            this.boxColumnsCount = new System.Windows.Forms.NumericUpDown();
+            this.boxRowsCount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.BoxRowCount = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.ButtonRandomize = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BoxColumnsCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BoxRowsCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsDataGrid)).BeginInit();
+            this.TabControl.SuspendLayout();
+            this.tabStudents.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxColumnsCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxRowsCount)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // studentsDataGrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 35);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 100;
-            this.dataGridView1.Size = new System.Drawing.Size(876, 438);
-            this.dataGridView1.TabIndex = 0;
+            this.studentsDataGrid.AllowUserToAddRows = false;
+            this.studentsDataGrid.AllowUserToDeleteRows = false;
+            this.studentsDataGrid.AllowUserToResizeColumns = false;
+            this.studentsDataGrid.AllowUserToResizeRows = false;
+            this.studentsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.studentsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.studentsDataGrid.Location = new System.Drawing.Point(3, 35);
+            this.studentsDataGrid.Name = "studentsDataGrid";
+            this.studentsDataGrid.RowHeadersWidth = 100;
+            this.studentsDataGrid.Size = new System.Drawing.Size(876, 438);
+            this.studentsDataGrid.TabIndex = 0;
             // 
-            // tabControl1
+            // TabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(890, 554);
-            this.tabControl1.TabIndex = 1;
+            this.TabControl.Controls.Add(this.tabStudents);
+            this.TabControl.Controls.Add(this.tabPage2);
+            this.TabControl.Controls.Add(this.tabPage3);
+            this.TabControl.Controls.Add(this.tabPage4);
+            this.TabControl.Controls.Add(this.tabPage5);
+            this.TabControl.Location = new System.Drawing.Point(12, 12);
+            this.TabControl.Name = "TabControl";
+            this.TabControl.SelectedIndex = 0;
+            this.TabControl.Size = new System.Drawing.Size(890, 554);
+            this.TabControl.TabIndex = 1;
             // 
-            // tabPage1
+            // tabStudents
             // 
-            this.tabPage1.Controls.Add(this.ButtonRandomize);
-            this.tabPage1.Controls.Add(this.BoxColumnsCount);
-            this.tabPage1.Controls.Add(this.BoxRowsCount);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.BoxRowCount);
-            this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(882, 528);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabStudents.Controls.Add(this.butonReadFromFile);
+            this.tabStudents.Controls.Add(this.buttonRandomize);
+            this.tabStudents.Controls.Add(this.boxColumnsCount);
+            this.tabStudents.Controls.Add(this.boxRowsCount);
+            this.tabStudents.Controls.Add(this.label2);
+            this.tabStudents.Controls.Add(this.BoxRowCount);
+            this.tabStudents.Controls.Add(this.studentsDataGrid);
+            this.tabStudents.Location = new System.Drawing.Point(4, 22);
+            this.tabStudents.Name = "tabStudents";
+            this.tabStudents.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStudents.Size = new System.Drawing.Size(882, 528);
+            this.tabStudents.TabIndex = 0;
+            this.tabStudents.Text = "Students";
+            this.tabStudents.UseVisualStyleBackColor = true;
             // 
-            // BoxColumnsCount
+            // butonReadFromFile
             // 
-            this.BoxColumnsCount.Location = new System.Drawing.Point(407, 8);
-            this.BoxColumnsCount.Minimum = new decimal(new int[] {
+            this.butonReadFromFile.Location = new System.Drawing.Point(146, 479);
+            this.butonReadFromFile.Name = "butonReadFromFile";
+            this.butonReadFromFile.Size = new System.Drawing.Size(106, 23);
+            this.butonReadFromFile.TabIndex = 6;
+            this.butonReadFromFile.Text = "Read from file";
+            this.butonReadFromFile.UseVisualStyleBackColor = true;
+            this.butonReadFromFile.Click += new System.EventHandler(this.butonReadFromFile_Click);
+            // 
+            // buttonRandomize
+            // 
+            this.buttonRandomize.Location = new System.Drawing.Point(9, 479);
+            this.buttonRandomize.Name = "buttonRandomize";
+            this.buttonRandomize.Size = new System.Drawing.Size(75, 23);
+            this.buttonRandomize.TabIndex = 5;
+            this.buttonRandomize.Text = "Randomize";
+            this.buttonRandomize.UseVisualStyleBackColor = true;
+            this.buttonRandomize.Click += new System.EventHandler(this.ButtonRandomize_Click);
+            // 
+            // boxColumnsCount
+            // 
+            this.boxColumnsCount.Location = new System.Drawing.Point(407, 8);
+            this.boxColumnsCount.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.BoxColumnsCount.Name = "BoxColumnsCount";
-            this.BoxColumnsCount.ReadOnly = true;
-            this.BoxColumnsCount.Size = new System.Drawing.Size(120, 20);
-            this.BoxColumnsCount.TabIndex = 4;
-            this.BoxColumnsCount.Value = new decimal(new int[] {
+            this.boxColumnsCount.Name = "boxColumnsCount";
+            this.boxColumnsCount.ReadOnly = true;
+            this.boxColumnsCount.Size = new System.Drawing.Size(120, 20);
+            this.boxColumnsCount.TabIndex = 4;
+            this.boxColumnsCount.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.BoxColumnsCount.ValueChanged += new System.EventHandler(this.BoxColumnsCount_ValueChanged);
+            this.boxColumnsCount.ValueChanged += new System.EventHandler(this.MoveColumnsCount);
             // 
-            // BoxRowsCount
+            // boxRowsCount
             // 
-            this.BoxRowsCount.Location = new System.Drawing.Point(61, 8);
-            this.BoxRowsCount.Minimum = new decimal(new int[] {
+            this.boxRowsCount.Location = new System.Drawing.Point(61, 8);
+            this.boxRowsCount.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.BoxRowsCount.Name = "BoxRowsCount";
-            this.BoxRowsCount.ReadOnly = true;
-            this.BoxRowsCount.Size = new System.Drawing.Size(120, 20);
-            this.BoxRowsCount.TabIndex = 3;
-            this.BoxRowsCount.Value = new decimal(new int[] {
+            this.boxRowsCount.Name = "boxRowsCount";
+            this.boxRowsCount.ReadOnly = true;
+            this.boxRowsCount.Size = new System.Drawing.Size(120, 20);
+            this.boxRowsCount.TabIndex = 3;
+            this.boxRowsCount.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.BoxRowsCount.ValueChanged += new System.EventHandler(this.BoxRowsCount_ValueChanged);
+            this.boxRowsCount.ValueChanged += new System.EventHandler(this.MoveRowsCount);
             // 
             // label2
             // 
@@ -151,7 +173,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(882, 476);
+            this.tabPage2.Size = new System.Drawing.Size(882, 528);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -161,7 +183,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(882, 476);
+            this.tabPage3.Size = new System.Drawing.Size(882, 528);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -171,7 +193,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(882, 476);
+            this.tabPage4.Size = new System.Drawing.Size(882, 528);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -181,54 +203,45 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(882, 476);
+            this.tabPage5.Size = new System.Drawing.Size(882, 528);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // ButtonRandomize
-            // 
-            this.ButtonRandomize.Location = new System.Drawing.Point(9, 479);
-            this.ButtonRandomize.Name = "ButtonRandomize";
-            this.ButtonRandomize.Size = new System.Drawing.Size(75, 23);
-            this.ButtonRandomize.TabIndex = 5;
-            this.ButtonRandomize.Text = "Randomize";
-            this.ButtonRandomize.UseVisualStyleBackColor = true;
-            this.ButtonRandomize.Click += new System.EventHandler(this.ButtonRandomize_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 620);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.TabControl);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BoxColumnsCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BoxRowsCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsDataGrid)).EndInit();
+            this.TabControl.ResumeLayout(false);
+            this.tabStudents.ResumeLayout(false);
+            this.tabStudents.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxColumnsCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxRowsCount)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView studentsDataGrid;
+        private System.Windows.Forms.TabControl TabControl;
+        private System.Windows.Forms.TabPage tabStudents;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.NumericUpDown BoxColumnsCount;
-        private System.Windows.Forms.NumericUpDown BoxRowsCount;
+        private System.Windows.Forms.NumericUpDown boxColumnsCount;
+        private System.Windows.Forms.NumericUpDown boxRowsCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label BoxRowCount;
-        private System.Windows.Forms.Button ButtonRandomize;
+        private System.Windows.Forms.Button buttonRandomize;
+        private System.Windows.Forms.Button butonReadFromFile;
     }
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,79 +13,136 @@ namespace DataGrids
 {
     public partial class Form1 : Form
     {
+        private bool reading;
         private int studentsCount;
-        int StudentsCount
-        {
-            get
-            {
-                return studentsCount;
-            }
-            set
-            {
-                if (value > dataGridView1.RowCount-1)
-                {
-                    studentsCount = value;
-                    DataGridViewRow row = new DataGridViewRow();
-                    row.HeaderCell.Value = "Student" + value;
-                    dataGridView1.Rows.Add(row);
-                }
-                else if (value < dataGridView1.RowCount)
-                {
-                    dataGridView1.Rows.RemoveAt(value);
-                }
-            }
-        }
         private int subjectsCount;
-        int SubjectsCount
+
+        public int StudentsCount
         {
-            get
-            {
-                return subjectsCount;
-            }
+            get => studentsCount;
             set
             {
-                if (value >= 0)
-                {
-                    subjectsCount = value;
-                    dataGridView1.ColumnCount = value;
-                    dataGridView1.Columns[value - 1].Name = "Subject " + value.ToString();
-                }
+                studentsCount = value;
             }
         }
+
+        public int SubjectsCount
+        {
+            get => subjectsCount;
+            set
+            {
+                subjectsCount = value;
+            }
+        }
+
+        private string Path { get; set; }
+
+        public char[] Splitter { get; set; }
 
         public Form1()
         {
             InitializeComponent();
+            Path = Application.StartupPath + "\\Students.csv";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            SubjectsCount = 1;
-            StudentsCount = 1;
+            MoveColumnsCount(null, null);
+            MoveRowsCount(null, null);
+            Splitter = new char[] { ',' };
         }
 
-        private void BoxRowsCount_ValueChanged(object sender, EventArgs e)
+        private void MoveRowsCount(object sender, EventArgs e)
         {
-            StudentsCount = (int)BoxRowsCount.Value;
+            if (reading)
+                return;
+
+            int newValue = (int)boxRowsCount.Value;
+
+            if (newValue > studentsDataGrid.RowCount - 1)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.HeaderCell.Value = "Student" + newValue;
+                studentsDataGrid.Rows.Add(row);
+            }
+            else if (newValue < studentsDataGrid.RowCount)
+            {
+                studentsDataGrid.Rows.RemoveAt(newValue);
+            }
+
+            StudentsCount = newValue;
         }
 
-        private void BoxColumnsCount_ValueChanged(object sender, EventArgs e)
+        private void MoveColumnsCount(object sender, EventArgs e)
         {
-            SubjectsCount = (int)BoxColumnsCount.Value;
+            if (reading)
+                return;
+
+            int newValue = (int)boxColumnsCount.Value;
+
+            SubjectsCount = newValue;
+            studentsDataGrid.ColumnCount = newValue;
+            if (newValue > 0)
+                studentsDataGrid.Columns[newValue - 1].Name = "Subject " + newValue.ToString();
         }
 
         private void ButtonRandomize_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
 
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < studentsDataGrid.RowCount; i++)
             {
-                for(int j = 0; j < dataGridView1.ColumnCount; j++)
+                for (int j = 0; j < studentsDataGrid.ColumnCount; j++)
                 {
-                    if(dataGridView1[j, i].Value == null)
-                    dataGridView1[j, i].Value = rand.Next(2, 6).ToString();
+                    if (studentsDataGrid[j, i].Value == null)
+                        studentsDataGrid[j, i].Value = rand.Next(2, 6).ToString();
                 }
             }
+        }
+
+        private void butonReadFromFile_Click(object sender, EventArgs e)
+        {
+            boxColumnsCount.Minimum = 0;
+            boxRowsCount.Minimum = 0;
+            SubjectsCount = 0;
+            StudentsCount = 0;
+            studentsDataGrid.RowCount = 0;
+            studentsDataGrid.ColumnCount = 0;
+
+            StreamReader reader = new StreamReader(Path);
+
+            string str;
+
+            while ((str = reader.ReadLine()) != null)
+            {
+                string[] cells = str.Split(Splitter);
+
+                if (SubjectsCount == 0)
+                {
+                    for (int i = 1; i < cells.Length; i++)
+                    {
+                        SubjectsCount++;
+                        boxColumnsCount.Value++;
+                        studentsDataGrid.Columns[i - 1].Name = cells[i];
+                    }
+                }
+
+                reading = true;
+                StudentsCount++;
+                boxRowsCount.Value++;
+                DataGridViewRow row = new DataGridViewRow();
+                row.HeaderCell.Value = cells[0];
+                
+                for(int i = 1; i < cells.Length; i++)
+                {
+                    row.Cells[i].Value = cells[i];
+                }
+                studentsDataGrid.Rows.Add(row);
+            }
+
+            boxColumnsCount.Minimum = 1;
+            boxRowsCount.Minimum = 1;
+            reading = false;
         }
     }
 }
