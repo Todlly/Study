@@ -37,7 +37,8 @@
             this.boxRowsCount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.BoxRowCount = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabAverage = new System.Windows.Forms.TabPage();
+            this.averageDataGrid = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -46,26 +47,31 @@
             this.tabStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxColumnsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxRowsCount)).BeginInit();
+            this.tabAverage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.averageDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // studentsDataGrid
             // 
+            this.studentsDataGrid.AllowDrop = true;
             this.studentsDataGrid.AllowUserToAddRows = false;
             this.studentsDataGrid.AllowUserToDeleteRows = false;
             this.studentsDataGrid.AllowUserToResizeColumns = false;
             this.studentsDataGrid.AllowUserToResizeRows = false;
             this.studentsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.studentsDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.studentsDataGrid.BackgroundColor = System.Drawing.Color.DarkGray;
             this.studentsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.studentsDataGrid.Location = new System.Drawing.Point(3, 35);
             this.studentsDataGrid.Name = "studentsDataGrid";
-            this.studentsDataGrid.RowHeadersWidth = 100;
+            this.studentsDataGrid.RowHeadersWidth = 130;
             this.studentsDataGrid.Size = new System.Drawing.Size(876, 438);
             this.studentsDataGrid.TabIndex = 0;
             // 
             // TabControl
             // 
             this.TabControl.Controls.Add(this.tabStudents);
-            this.TabControl.Controls.Add(this.tabPage2);
+            this.TabControl.Controls.Add(this.tabAverage);
             this.TabControl.Controls.Add(this.tabPage3);
             this.TabControl.Controls.Add(this.tabPage4);
             this.TabControl.Controls.Add(this.tabPage5);
@@ -168,15 +174,25 @@
             this.BoxRowCount.TabIndex = 1;
             this.BoxRowCount.Text = "Students";
             // 
-            // tabPage2
+            // tabAverage
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(882, 528);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabAverage.Controls.Add(this.averageDataGrid);
+            this.tabAverage.Location = new System.Drawing.Point(4, 22);
+            this.tabAverage.Name = "tabAverage";
+            this.tabAverage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAverage.Size = new System.Drawing.Size(882, 528);
+            this.tabAverage.TabIndex = 1;
+            this.tabAverage.Text = "Average";
+            this.tabAverage.UseVisualStyleBackColor = true;
+            this.tabAverage.Enter += new System.EventHandler(this.tabAverage_Enter);
+            // 
+            // averageDataGrid
+            // 
+            this.averageDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.averageDataGrid.Location = new System.Drawing.Point(6, 84);
+            this.averageDataGrid.Name = "averageDataGrid";
+            this.averageDataGrid.Size = new System.Drawing.Size(870, 438);
+            this.averageDataGrid.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -223,6 +239,8 @@
             this.tabStudents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxColumnsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxRowsCount)).EndInit();
+            this.tabAverage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.averageDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -232,7 +250,7 @@
         private System.Windows.Forms.DataGridView studentsDataGrid;
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage tabStudents;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabAverage;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
@@ -242,6 +260,7 @@
         private System.Windows.Forms.Label BoxRowCount;
         private System.Windows.Forms.Button buttonRandomize;
         private System.Windows.Forms.Button butonReadFromFile;
+        private System.Windows.Forms.DataGridView averageDataGrid;
     }
 }
 

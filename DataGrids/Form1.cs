@@ -13,27 +13,11 @@ namespace DataGrids
 {
     public partial class Form1 : Form
     {
-        private bool reading;
-        private int studentsCount;
-        private int subjectsCount;
+        public bool Reading { get; set; }
 
-        public int StudentsCount
-        {
-            get => studentsCount;
-            set
-            {
-                studentsCount = value;
-            }
-        }
+        public int StudentsCount { get; set; }
 
-        public int SubjectsCount
-        {
-            get => subjectsCount;
-            set
-            {
-                subjectsCount = value;
-            }
-        }
+        public int SubjectsCount { get; set; }
 
         private string Path { get; set; }
 
@@ -54,7 +38,7 @@ namespace DataGrids
 
         private void MoveRowsCount(object sender, EventArgs e)
         {
-            if (reading)
+            if (Reading)
                 return;
 
             int newValue = (int)boxRowsCount.Value;
@@ -74,7 +58,7 @@ namespace DataGrids
 
         private void MoveColumnsCount(object sender, EventArgs e)
         {
-            if (reading)
+            if (Reading)
                 return;
 
             int newValue = (int)boxColumnsCount.Value;
@@ -100,7 +84,7 @@ namespace DataGrids
 
         private void butonReadFromFile_Click(object sender, EventArgs e)
         {
-            reading = true;
+            Reading = true;
 
             boxColumnsCount.Minimum = 0;
             boxRowsCount.Minimum = 0;
@@ -131,7 +115,7 @@ namespace DataGrids
                     continue;
                 }
 
-                reading = true;
+                Reading = true;
                 StudentsCount++;
                 boxRowsCount.Value++;
 
@@ -146,7 +130,7 @@ namespace DataGrids
 
             boxColumnsCount.Minimum = 1;
             boxRowsCount.Minimum = 1;
-            reading = false;
+            Reading = false;
             reader.Close();
         }
 
@@ -166,6 +150,29 @@ namespace DataGrids
                     studentsDataGrid.Rows[i].HeaderCell.Value = "Student " + (i + 1).ToString();
                 }
             }
+        }
+
+        public void UpdateAverage()
+        {
+            averageDataGrid.ColumnCount = 5;
+
+            averageDataGrid.TopLeftHeaderCell.Value = "Students";
+            averageDataGrid.Columns[0].Name = "2";
+            averageDataGrid.Columns[1].Name = "3";
+            averageDataGrid.Columns[2].Name = "4";
+            averageDataGrid.Columns[3].Name = "5";
+            averageDataGrid.Columns[4].Name = "Average";
+
+            averageDataGrid.RowCount = StudentsCount;
+            for(int i = 0; i < studentsDataGrid.RowCount; i++)
+            {
+                averageDataGrid.Rows[i].HeaderCell.Value = studentsDataGrid.Rows[i].HeaderCell.Value;
+            }
+        }
+
+        private void tabAverage_Enter(object sender, EventArgs e)
+        {
+            UpdateAverage();
         }
     }
 }
