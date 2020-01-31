@@ -49,7 +49,7 @@ namespace DataGrids
         {
             MoveColumnsCount(null, null);
             MoveRowsCount(null, null);
-            Splitter = new char[] { ',' };
+            Splitter = new char[] { ',', ';', ' ' };
         }
 
         private void MoveRowsCount(object sender, EventArgs e)
@@ -61,9 +61,7 @@ namespace DataGrids
 
             if (newValue > studentsDataGrid.RowCount - 1)
             {
-                DataGridViewRow row = new DataGridViewRow();
-                row.HeaderCell.Value = "Student" + newValue;
-                studentsDataGrid.Rows.Add(row);
+                studentsDataGrid.Rows.Add(new DataGridViewRow());
             }
             else if (newValue < studentsDataGrid.RowCount)
             {
@@ -71,6 +69,7 @@ namespace DataGrids
             }
 
             StudentsCount = newValue;
+            NameTable();
         }
 
         private void MoveColumnsCount(object sender, EventArgs e)
@@ -82,8 +81,7 @@ namespace DataGrids
 
             SubjectsCount = newValue;
             studentsDataGrid.ColumnCount = newValue;
-            if (newValue > 0)
-                studentsDataGrid.Columns[newValue - 1].Name = "Subject " + newValue.ToString();
+            NameTable();
         }
 
         private void ButtonRandomize_Click(object sender, EventArgs e)
@@ -102,12 +100,16 @@ namespace DataGrids
 
         private void butonReadFromFile_Click(object sender, EventArgs e)
         {
+            reading = true;
+
             boxColumnsCount.Minimum = 0;
             boxRowsCount.Minimum = 0;
-            SubjectsCount = 0;
-            StudentsCount = 0;
+            boxColumnsCount.Value = 0;
+            boxRowsCount.Value = 0;
             studentsDataGrid.RowCount = 0;
             studentsDataGrid.ColumnCount = 0;
+            SubjectsCount = 0;
+            StudentsCount = 0;
 
             StreamReader reader = new StreamReader(Path);
 
@@ -119,30 +121,51 @@ namespace DataGrids
 
                 if (SubjectsCount == 0)
                 {
+                    studentsDataGrid.ColumnCount = cells.Length - 1;
                     for (int i = 1; i < cells.Length; i++)
                     {
                         SubjectsCount++;
                         boxColumnsCount.Value++;
                         studentsDataGrid.Columns[i - 1].Name = cells[i];
                     }
+                    continue;
                 }
 
                 reading = true;
                 StudentsCount++;
                 boxRowsCount.Value++;
-                DataGridViewRow row = new DataGridViewRow();
-                row.HeaderCell.Value = cells[0];
-                
-                for(int i = 1; i < cells.Length; i++)
+
+                studentsDataGrid.Rows.Add();
+                studentsDataGrid.Rows[studentsDataGrid.RowCount - 1].HeaderCell.Value = cells[0];
+                for(int i = 0; i < studentsDataGrid.ColumnCount; i++)
                 {
-                    row.Cells[i].Value = cells[i];
+                    studentsDataGrid[i, studentsDataGrid.RowCount - 1].Value = cells[i + 1];
                 }
-                studentsDataGrid.Rows.Add(row);
+
             }
 
             boxColumnsCount.Minimum = 1;
             boxRowsCount.Minimum = 1;
             reading = false;
+            reader.Close();
+        }
+
+        private void NameTable()
+        {
+            for (int i = 0; i < studentsDataGrid.ColumnCount; i++)
+            {
+                if (studentsDataGrid.Columns[i].Name == string.Empty)
+                {
+                    studentsDataGrid.Columns[i].Name = "Subject " + (i + 1).ToString();
+                }
+            }
+            for (int i = 0; i < studentsDataGrid.RowCount; i++)
+            {
+                if (studentsDataGrid.Rows[i].HeaderCell.Value == null)
+                {
+                    studentsDataGrid.Rows[i].HeaderCell.Value = "Student " + (i + 1).ToString();
+                }
+            }
         }
     }
 }
