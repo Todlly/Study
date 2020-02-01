@@ -77,7 +77,13 @@ namespace DataGrids
                 for (int j = 0; j < studentsDataGrid.ColumnCount; j++)
                 {
                     if (studentsDataGrid[j, i].Value == null)
-                        studentsDataGrid[j, i].Value = rand.Next(2, 6).ToString();
+                    {
+                        int mark = rand.Next(1, 6);
+                        if (mark == 1)
+                            studentsDataGrid[j, i].Value = "N/A";
+                        else
+                            studentsDataGrid[j, i].Value = mark.ToString();
+                    }
                 }
             }
         }
@@ -121,7 +127,7 @@ namespace DataGrids
 
                 studentsDataGrid.Rows.Add();
                 studentsDataGrid.Rows[studentsDataGrid.RowCount - 1].HeaderCell.Value = cells[0];
-                for(int i = 0; i < studentsDataGrid.ColumnCount; i++)
+                for (int i = 0; i < studentsDataGrid.ColumnCount; i++)
                 {
                     studentsDataGrid[i, studentsDataGrid.RowCount - 1].Value = cells[i + 1];
                 }
@@ -154,24 +160,80 @@ namespace DataGrids
 
         public void UpdateAverage()
         {
-            averageDataGrid.ColumnCount = 5;
+            averageDataGrid.ColumnCount = 6;
 
             averageDataGrid.TopLeftHeaderCell.Value = "Students";
-            averageDataGrid.Columns[0].Name = "2";
-            averageDataGrid.Columns[1].Name = "3";
-            averageDataGrid.Columns[2].Name = "4";
-            averageDataGrid.Columns[3].Name = "5";
-            averageDataGrid.Columns[4].Name = "Average";
+            averageDataGrid.Columns[0].Name = "N/A";
+            averageDataGrid.Columns[1].Name = "2";
+            averageDataGrid.Columns[2].Name = "3";
+            averageDataGrid.Columns[3].Name = "4";
+            averageDataGrid.Columns[4].Name = "5";
+            averageDataGrid.Columns[5].Name = "Average";
 
-            averageDataGrid.RowCount = StudentsCount;
-            for(int i = 0; i < studentsDataGrid.RowCount; i++)
+            averageDataGrid.RowCount = StudentsCount + 1;
+            averageDataGrid.Rows[StudentsCount].HeaderCell.Value = "Total:";
+
+            for (int i = 0; i < studentsDataGrid.RowCount; i++)
             {
                 averageDataGrid.Rows[i].HeaderCell.Value = studentsDataGrid.Rows[i].HeaderCell.Value;
+                for (int m = 0; m < 5; m++)
+                {
+                    averageDataGrid[m, i].Value = CountValues(studentsDataGrid.Rows[i], averageDataGrid.Columns[m].Name).ToString();
+                }
+                averageDataGrid[5, i].Value = AverageMark(studentsDataGrid.Rows[i]).ToString("0.0");
             }
+
+            for(int i = 0; i < averageDataGrid.ColumnCount - 1; i++)
+            {
+                double count = 0;
+                for(int j = 0; j < averageDataGrid.RowCount - 1; j++)
+                {
+                    count += Convert.ToDouble(averageDataGrid[i, j].Value);
+                }
+                averageDataGrid[i, averageDataGrid.RowCount - 1].Value = count;
+            }
+            
+        }
+
+        private float AverageMark(DataGridViewRow row)
+        {
+            float counter = 0;
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                if (cell.Value.ToString() != "N/A")
+                    counter += Convert.ToInt32(cell.Value);
+                else
+                    counter++;
+            }
+            counter /= SubjectsCount;
+            return counter;
+        }
+
+        private int CountValues(DataGridViewRow row, string val)
+        {
+            int counter = 0;
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                if (cell.Value.ToString() == val)
+                    counter++;
+            }
+            return counter;
         }
 
         private void tabAverage_Enter(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in studentsDataGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value == null)
+                    {
+                        MessageBox.Show("Fill the table first!");
+                        TabControl.SelectedIndex = 0;
+                        return;
+                    }
+                }
+            }
             UpdateAverage();
         }
     }
