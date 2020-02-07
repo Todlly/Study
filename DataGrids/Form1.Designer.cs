@@ -40,9 +40,9 @@
             this.tabAverage = new System.Windows.Forms.TabPage();
             this.averageDataGrid = new System.Windows.Forms.DataGridView();
             this.tabSubjects = new System.Windows.Forms.TabPage();
+            this.subjectsDataGrid = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.subjectsDataGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.studentsDataGrid)).BeginInit();
             this.TabControl.SuspendLayout();
             this.tabStudents.SuspendLayout();
@@ -217,6 +217,24 @@
             this.tabSubjects.TabIndex = 2;
             this.tabSubjects.Text = "Subjects";
             this.tabSubjects.UseVisualStyleBackColor = true;
+            this.tabSubjects.Enter += new System.EventHandler(this.tabSubjects_Enter);
+            // 
+            // subjectsDataGrid
+            // 
+            this.subjectsDataGrid.AllowDrop = true;
+            this.subjectsDataGrid.AllowUserToAddRows = false;
+            this.subjectsDataGrid.AllowUserToDeleteRows = false;
+            this.subjectsDataGrid.AllowUserToResizeColumns = false;
+            this.subjectsDataGrid.AllowUserToResizeRows = false;
+            this.subjectsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.subjectsDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.subjectsDataGrid.BackgroundColor = System.Drawing.Color.DarkGray;
+            this.subjectsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.subjectsDataGrid.Location = new System.Drawing.Point(6, 6);
+            this.subjectsDataGrid.Name = "subjectsDataGrid";
+            this.subjectsDataGrid.RowHeadersWidth = 130;
+            this.subjectsDataGrid.Size = new System.Drawing.Size(870, 516);
+            this.subjectsDataGrid.TabIndex = 2;
             // 
             // tabPage4
             // 
@@ -237,23 +255,6 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // subjectsDataGrid
-            // 
-            this.subjectsDataGrid.AllowDrop = true;
-            this.subjectsDataGrid.AllowUserToAddRows = false;
-            this.subjectsDataGrid.AllowUserToDeleteRows = false;
-            this.subjectsDataGrid.AllowUserToResizeColumns = false;
-            this.subjectsDataGrid.AllowUserToResizeRows = false;
-            this.subjectsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.subjectsDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.subjectsDataGrid.BackgroundColor = System.Drawing.Color.DarkGray;
-            this.subjectsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.subjectsDataGrid.Location = new System.Drawing.Point(6, 6);
-            this.subjectsDataGrid.Name = "subjectsDataGrid";
-            this.subjectsDataGrid.RowHeadersWidth = 130;
-            this.subjectsDataGrid.Size = new System.Drawing.Size(870, 516);
-            this.subjectsDataGrid.TabIndex = 2;
             // 
             // Form1
             // 
