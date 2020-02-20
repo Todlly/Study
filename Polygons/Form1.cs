@@ -13,25 +13,26 @@ namespace Polygons
     public partial class Form1 : Form
     {
         public Point[] Nodes { get; set; }
-        public Pen Pen { get; set; }
         public double Radius { get; set; }
-        public Color PenColor;
         public double AngleOffset { get; set; }
         public bool Rotating { get; set; }
-        Graphics Drawer { get; set; }
+        public Color PenColor { get; set; }
+        public Pen Pen { get; }
+        Graphics Drawer { get; }
 
         public Form1()
         {
             InitializeComponent();
-            trackBarRadius.Maximum = pictureBox.Height / 2;
-            Drawer = pictureBox.CreateGraphics();
-            PenColor = Color.Black;
             Pen = new Pen(PenColor);
             Pen.Width = 3;
             Pen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
-            Radius = 100;
-            numericUpDownNodesCount.Minimum = 3;
+            NodesCountBox.Minimum = 3;
+            RadiusBar.Maximum = pictureBox.Height / 2;
+            Drawer = pictureBox.CreateGraphics();
+            PenColor = Color.Black;
             Rotating = false;
+            Radius = 100;
+            AngleOffset = 0;
         }
 
 
@@ -40,11 +41,11 @@ namespace Polygons
             pictureBox.Refresh();
 
             Random rand = new Random();
-            Nodes = (new Point[(int)numericUpDownNodesCount.Value]);
+            Nodes = (new Point[(int)NodesCountBox.Value]);
             double dAlpha = 2 * Math.PI / Nodes.Length;
             double Alpha = 0;
             Point center = new Point(pictureBox.Width / 2, pictureBox.Height / 2);
-            Radius = trackBarRadius.Value;
+            Radius = RadiusBar.Value;
             Pen.Width = ThicknessBar.Value;
             if (ColorMono.Checked)
                 Pen.Color = PenColor;
@@ -109,13 +110,21 @@ namespace Polygons
             while (checkBoxRotate.Checked)
             {
                 if (CoCKWButt.Checked)
+                {
                     AngleOffset += offset;
-                else if(CKWButt.Checked)
+                    if (offset > 2 * Math.PI)
+                        offset %= 2 * Math.PI;
+                }
+                else if (CKWButt.Checked)
+                {
                     AngleOffset -= offset;
+                    if (offset < 2 * Math.PI)
+                        offset %= 2 * Math.PI;
+                }
                 Redraw(null, null);
                 await Task.Run(() =>
                 {
-                    Task.Delay(51 / (int)numericUpDownRotatePause.Value).Wait();
+                    Task.Delay(51 / (int)RotationSpeedBox.Value).Wait();
                 });
             }
             Rotating = false;
@@ -129,5 +138,7 @@ namespace Polygons
                 Rotate();
             }
         }
+
+
     }
 }
