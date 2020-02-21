@@ -1,0 +1,10 @@
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\bin\Debug\Photoshop.exe.config
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\bin\Debug\Photoshop.exe
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\bin\Debug\Photoshop.pdb
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.csprojAssemblyReference.cache
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.Properties.Resources.resources
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.csproj.GenerateResource.cache
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.csproj.CoreCompileInputs.cache
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.exe
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.pdb
+C:\Users\stud\374\Безуглый Сергей\Study\Photoshop\obj\Debug\Photoshop.Form1.resources

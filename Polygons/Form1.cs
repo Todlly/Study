@@ -26,7 +26,7 @@ namespace Polygons
             Pen = new Pen(PenColor);
             Pen.Width = 3;
             Pen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
-            NodesCountBox.Minimum = 3;
+            NodesCountBox.Minimum = 0;
             RadiusBar.Maximum = pictureBox.Height / 2;
             Drawer = pictureBox.CreateGraphics();
             PenColor = Color.Black;
