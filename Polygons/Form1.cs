@@ -19,6 +19,7 @@ namespace Polygons
         public Color PenColor { get; set; }
         public Pen Pen { get; }
         Graphics Drawer { get; }
+        public string WheelMode { get; set; }
 
         public Form1()
         {
@@ -26,45 +27,85 @@ namespace Polygons
             Pen = new Pen(PenColor);
             Pen.Width = 3;
             Pen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
-            NodesCountBox.Minimum = 0;
+            NodesCountBox.Minimum = 3;
             RadiusBar.Maximum = pictureBox.Height / 2;
             Drawer = pictureBox.CreateGraphics();
             PenColor = Color.Black;
             Rotating = false;
-            Radius = 100;
-            AngleOffset = 0;
+            Radius = 1;
+            Drawer.TranslateTransform(pictureBox.Width / 2, pictureBox.Height / 2);
+            MouseWheel += Scroll;
+            pictureBox.MouseDown += ChangeWheelMode;
+            WheelMode = "Rotate";
+            RecalculateNodes();
         }
 
 
-        public void Redraw(object sender, EventArgs e)
+        private void ChangeWheelMode(object sender, MouseEventArgs e)
         {
-            pictureBox.Refresh();
+            if (e.Button == MouseButtons.Middle)
+            {
+                if (WheelMode == "Rotate")
+                {
+                    WheelMode = "Size";
+                }
+                else if (WheelMode == "Size")
+                {
+                    WheelMode = "Rotate";
+                }
+            }
+        }
 
-            Random rand = new Random();
+        private void Scroll(object sender, MouseEventArgs e)
+        {
+            if (WheelMode == "Rotate")
+            {
+                if (e.Delta < 0)
+                    TrueRotate(true);
+                else
+                    TrueRotate(false);
+            }
+            else if (WheelMode == "Size")
+            {
+                if (e.Delta > 0)
+                    Drawer.ScaleTransform(1.1f, 1.1f);
+                else
+                    Drawer.ScaleTransform(0.9f, 0.9f);
+                Redraw(null, null);
+            }
+        }
+
+        private void HUI() => Text = "hui";
+
+        private void RecalculateNodes()
+        {
             Nodes = (new Point[(int)NodesCountBox.Value]);
+
             double dAlpha = 2 * Math.PI / Nodes.Length;
             double Alpha = 0;
-            Point center = new Point(pictureBox.Width / 2, pictureBox.Height / 2);
             Radius = RadiusBar.Value;
-            Pen.Width = ThicknessBar.Value;
-            if (ColorMono.Checked)
-                Pen.Color = PenColor;
-
+            
             for (int i = 0; i < Nodes.Length; i++)
             {
                 Nodes[i] = new Point();
             }
-            if (Rotating)
-            {
-                Alpha += AngleOffset;
-            }
 
             for (int i = 0; i < Nodes.Length; i++)
             {
-                Nodes[i] = new Point((int)(center.X + Radius * Math.Cos(Alpha)), (int)(center.Y - Radius * Math.Sin(Alpha)));
+                Nodes[i] = new Point((int)(Radius * Math.Cos(Alpha)), (int)(Radius * Math.Sin(Alpha)));
                 Alpha += dAlpha;
             }
+        }
 
+        public void Redraw(object sender, EventArgs e)
+        {
+            pictureBox.Refresh();
+            Random rand = new Random();
+            Pen.Width = ThicknessBar.Value;
+
+            if (ColorMono.Checked)
+                Pen.Color = PenColor;
+            
             for (int i = 0; i < Nodes.Length - 1; i++)
             {
                 if (ColorRandom.Checked)
@@ -103,42 +144,44 @@ namespace Polygons
             Redraw(null, null);
         }
 
-        private async void Rotate()
+        private void TrueRotate(bool CKW)
         {
-            double offset = 2 * Math.PI / 60;
-            Rotating = true;
+            if (CKW)
+                Drawer.RotateTransform(3);
+            else
+                Drawer.RotateTransform(-3);
+            Redraw(null, null);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TrueRotate(CKWButt.Checked);
+            Redraw(null, null);
+        }
+
+        private async void checkBoxRotate_CheckedChanged(object sender, EventArgs e)
+        {
             while (checkBoxRotate.Checked)
             {
-                if (CoCKWButt.Checked)
-                {
-                    AngleOffset += offset;
-                    if (offset > 2 * Math.PI)
-                        offset %= 2 * Math.PI;
-                }
-                else if (CKWButt.Checked)
-                {
-                    AngleOffset -= offset;
-                    if (offset < 2 * Math.PI)
-                        offset %= 2 * Math.PI;
-                }
-                Redraw(null, null);
-                await Task.Run(() =>
-                {
-                    Task.Delay(51 / (int)RotationSpeedBox.Value).Wait();
-                });
-            }
-            Rotating = false;
-            AngleOffset = 0;
-        }
+                TrueRotate(CKWButt.Checked);
 
-        private void checkBoxRotate_CheckedChanged(object sender, EventArgs e)
+                await Task.Delay((int)(510 / (double)RotationSpeedBox.Value));
+            }
+        }
+        
+        private void UpdatePolygon(object sender, EventArgs e)
         {
-            if (checkBoxRotate.Checked)
-            {
-                Rotate();
-            }
+            RecalculateNodes();
+            Redraw(null, null);
         }
 
-
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Image|*.jpg;*.png;*.gif;";
+            dialog.ShowDialog();
+            Image img = Image.FromFile(dialog.FileName);
+            Drawer.DrawImage(img, new Point(0, 0));
+        }
     }
 }
